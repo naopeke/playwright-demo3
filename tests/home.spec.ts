@@ -1,8 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Home page", () => {
+test.describe("Home page with no auth", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("https://practicesoftwaretesting.com/");
+  });
+
+  test("visual test", async ({ page }) => {
+    await expect(page).toHaveScreenshot(
+      "tests/home.spec.ts-snapshots/home-page-no-auth-chromium-linux.png"
+    );
   });
 
   test("check sign in", async ({ page }) => {
@@ -13,7 +19,7 @@ test.describe("Home page", () => {
   test("validate page title", async ({ page }) => {
     // chack the title of the page
     await expect(page).toHaveTitle(
-      "Practice Software Testing - Toolshop - v.5.0"
+      "Practice Software Testing - Toolshop - v5.0"
     );
   });
 
@@ -32,4 +38,24 @@ test.describe("Home page", () => {
     await expect(productGrid.getByRole("link")).toHaveCount(1);
     await expect(page.getByAltText("Thor Hammer")).toBeVisible();
   });
+
+  test.describe("Home page customer 01 auth", () => {
+    test.use({ storageState: ".auth/customer01.json" });
+    test.beforeEach(async ({ page }) => {
+      await page.goto("https//practicesoftwaretesting.com/");
+    });
+
+    test("visual test authorized", async ({ page }) => {
+      await expect(page).toHaveScreenshot(
+        "home-page-customer01-chromium-linux.png"
+      );
+    });
+    //╰─ npx playwright test tests/home.spec.ts --update-snapshots
+
+    test("check customer 01 is signed in", async ({ page }) => {
+      await expect(page.getByTestId("nav-sign-in")).not.toBeVisible();
+    });
+  });
 });
+
+// npx playwright test tests/home.spec.ts
