@@ -7,7 +7,10 @@ test.describe("Home page with no auth", () => {
 
   test("visual test", async ({ page }) => {
     await expect(page).toHaveScreenshot(
-      "tests/home.spec.ts-snapshots/home-page-no-auth-chromium-linux.png"
+      "tests/home.spec.ts-snapshots/home-page-no-auth-chromium-linux.png",
+      {
+        mask: [page.getByTitle("Toolshop")],
+      }
     );
   });
 
@@ -47,7 +50,10 @@ test.describe("Home page with no auth", () => {
 
     test("visual test authorized", async ({ page }) => {
       await expect(page).toHaveScreenshot(
-        "home-page-customer01-chromium-linux.png"
+        "home-page-customer01-chromium-linux.png",
+        {
+          mask: [page.getByTitle("Toolshop")],
+        }
       );
     });
     //╰─ npx playwright test tests/home.spec.ts --update-snapshots
