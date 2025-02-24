@@ -1,16 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   timeout: 30_000,
   globalTimeout: 10 * 60 * 1000,
@@ -37,6 +26,7 @@ export default defineConfig({
     video: "retain-on-failure",
     screenshot: "only-on-failure",
     headless: true,
+    testIdAttribute: "data-test", // the default testId for Playwright is 'data-testid' the above configuration change will use 'data-test
   },
 
   /* Configure projects for major browsers */
