@@ -23,8 +23,9 @@ test("login test", async ({ page }) => {
 test("login test with page object", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
-  await loginPage.emailInput.fill("customer@practicesoftwaretesting.com");
-  await loginPage.passwordInput.fill("welcome01");
-  await loginPage.loginButton.click();
+  // await loginPage.emailInput.fill("customer@practicesoftwaretesting.com");
+  // await loginPage.passwordInput.fill("welcome01");
+  // await loginPage.loginButton.click();
+  await loginPage.login("customer@practicesoftwaretesting.com", "welcome01");
   await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
 });
